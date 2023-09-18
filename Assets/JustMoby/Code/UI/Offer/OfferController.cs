@@ -1,4 +1,6 @@
 ﻿using JustMoby.Code.ContentProvider.Offer;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace JustMoby.Code.UI.Offer
 {
@@ -6,13 +8,17 @@ namespace JustMoby.Code.UI.Offer
     {
         private readonly OfferProvider _offerProvider;
         private readonly IOfferView _view;
+        private readonly UnityEvent _offerClickEvent;
         private string offerId = "offer1";
         
-        public OfferController(IOfferView view, OfferProvider offerProvider)
+        public OfferController(IOfferView view, OfferProvider offerProvider,UnityEvent offerClickEvent)
         {
             _offerProvider = offerProvider;
             _view = view;
+            _offerClickEvent = offerClickEvent;
+            
             Init();
+            _offerClickEvent.AddListener(OnOfferClick);
         }
 
         private void Init()
@@ -22,6 +28,11 @@ namespace JustMoby.Code.UI.Offer
             
             _view.SetOfferData(offer);
             _view.SetOfferItems(items);
+        }
+
+        private void OnOfferClick()
+        {
+            Debug.Log("Offer clicked");
         }
     }
 }

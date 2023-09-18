@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using JustMoby.Code.ContentProvider.Offer;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace JustMoby.Code.UI.Offer
@@ -27,9 +28,9 @@ namespace JustMoby.Code.UI.Offer
         [Header("items")]
         [SerializeField] private List<ItemView> _itemViews;
 
-        private void Start()
+        public void Init(UnityEvent offerClickEvent)
         {
-            buttonPrice.onClick.AddListener(() => { });
+            buttonPrice.onClick.AddListener(() => { offerClickEvent?.Invoke();});
         }
 
         public void SetOfferData(OfferData offerData)

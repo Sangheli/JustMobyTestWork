@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using JustMoby.Code.ContentProvider.Offer;
 using JustMoby.Code.ContentProvider.View;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace JustMoby.Code.UI.Offer
 {
@@ -9,7 +10,8 @@ namespace JustMoby.Code.UI.Offer
     {
         private IOfferView _view;
         private OfferController _controller;
-    
+        private readonly UnityEvent offerClickEvent = new UnityEvent();
+
         public OfferEntity(Transform root, ViewProvider viewProvider, OfferProvider offerProvider)
         {
             Init(root,viewProvider,offerProvider);
@@ -26,11 +28,12 @@ namespace JustMoby.Code.UI.Offer
             var handle = viewProvider.OfferView.InstantiateAsync(root);
             await handle.Task;
             _view = handle.Result.GetComponent<IOfferView>();
+            _view.Init(offerClickEvent);
         }
 
         private void CreateController(OfferProvider offerProvider)
         {
-            _controller = new OfferController(_view, offerProvider);
+            _controller = new OfferController(_view, offerProvider, offerClickEvent);
         }
     }
 }
