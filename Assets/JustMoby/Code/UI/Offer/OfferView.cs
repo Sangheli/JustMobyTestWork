@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JustMoby.Code.ContentProvider.Offer;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,14 +8,23 @@ namespace JustMoby.Code.UI.Offer
 {
     public class OfferView : MonoBehaviour, IOfferView
     {
+        [Header("offer image")]
         [SerializeField] private Image bigImage;
+     
+        [Header("info")]
+        [SerializeField] private TMP_Text headerText;
+        [SerializeField] private TMP_Text infoText;
         
-        [SerializeField] private Text headerText;
-        [SerializeField] private Text infoText;
-        
+        [Header("price")]
         [SerializeField] private Button buttonPrice;
-        [SerializeField] private Text buttonPriceText;
+        [SerializeField] private TMP_Text buttonPriceText;
+        [SerializeField] private TMP_Text buttonPriceTextNoDiscount;
+
+        [Header("discount")]
+        [SerializeField] private Image discountImage;
+        [SerializeField] private TMP_Text discountText;
         
+        [Header("items")]
         [SerializeField] private List<ItemView> _itemViews;
 
         private void Start()
@@ -22,13 +32,22 @@ namespace JustMoby.Code.UI.Offer
             buttonPrice.onClick.AddListener(() => { });
         }
 
-        public void SetOfferData(OfferData data)
+        public void SetOfferData(OfferData offerData)
         {
-            headerText.text = data.offerId;
-            infoText.text = data.offerId;
+            headerText.text = offerData.offerHeader;
+            infoText.text = offerData.offerDescription;
             
-            bigImage.sprite = data.sprite;
-            buttonPriceText.text = data.defaultPrice.ToString();
+            bigImage.sprite = offerData.sprite;
+
+            var newPrice = offerData.defaultPrice;
+            if (offerData.hasDiscount) newPrice = newPrice * offerData.defaultDiscount / 100;
+            
+            buttonPriceText.text = $"${newPrice:0.00}";
+            buttonPriceTextNoDiscount.text = $"<s>${offerData.defaultPrice:0.00}</s>";
+            buttonPriceTextNoDiscount.gameObject.SetActive(offerData.hasDiscount);
+            
+            discountImage.gameObject.SetActive(offerData.hasDiscount);
+            discountText.text = $"-{offerData.defaultDiscount}%";
         }
 
         public void SetOfferItems(List<OfferItemData> itemList)
