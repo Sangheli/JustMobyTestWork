@@ -8,8 +8,11 @@ namespace JustMoby.Code.ContentProvider.Offer
     public class OfferData
     {
         public string offerId;
+        public string offerHeader;
+        public string offerDescription;
         public float defaultPrice;
-        public float defaultPricecut;
+        public float defaultDiscount;
+        public bool hasDiscount;
         public Sprite sprite;
         
         public List<OfferItemData> offerItemList;
