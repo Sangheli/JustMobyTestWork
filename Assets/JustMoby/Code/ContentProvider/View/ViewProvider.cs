@@ -8,5 +8,8 @@ namespace JustMoby.Code.ContentProvider.View
     {
         [SerializeField] private AssetReference _offerView;
         public AssetReference OfferView => _offerView;
+        
+        [SerializeField] private AssetReference _startScreenView;
+        public AssetReference StartScreenView => _startScreenView;
     }
 }

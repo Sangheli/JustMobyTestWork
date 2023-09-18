@@ -16,3 +16,7 @@ MonoBehaviour:
     m_AssetGUID: bc2f67f97ed8c4843b90fe75e4070e1a
     m_SubObjectName: 
     m_SubObjectType: 
+  _startScreenView:
+    m_AssetGUID: af1838b996a027d4b97161e46570171f
+    m_SubObjectName: 
+    m_SubObjectType: 

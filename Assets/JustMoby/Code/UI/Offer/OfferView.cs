@@ -69,5 +69,10 @@ namespace JustMoby.Code.UI.Offer
                     _itemViews[i].gameObject.SetActive(false);
             }            
         }
+
+        public void ToggleView(bool state)
+        {
+            gameObject.SetActive(state);
+        }
     }
 }
